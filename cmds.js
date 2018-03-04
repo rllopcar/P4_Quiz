@@ -114,8 +114,8 @@ exports.playCmd = (rl) => {
     }
     const playOne = () => {
         if (toBeResolve.length == 0) {
-            biglog('FIN', 'red');
-            biglog('RESULTADO : '+score, 'red');
+            log('FIN', 'red');
+            log('RESULTADO : '+score, 'red');
             rl.prompt();
         } else {
             let idAux = Math.random();
@@ -124,14 +124,14 @@ exports.playCmd = (rl) => {
             rl.question(colorize('¿'+quiz.question+'?'+' => ', 'red'), resp => {
                 if(resp.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
                     score++;
-                    biglog('CORRECTO', 'green');
-                    biglog(`Lleva ${score} aciertos`, 'blue');
+                    log('CORRECTO', 'green');
+                    log(`Lleva ${score} aciertos`, 'blue');
                     toBeResolve.splice(id, 1);
                     playOne();
                     rl.prompt();
                 } else {
-                    biglog('Incorrecto', 'red');
-                    biglog('FIN', 'red');
+                    log('Incorrecto', 'red');
+                    log('FIN', 'red');
                     rl.prompt();
                 }
             });
