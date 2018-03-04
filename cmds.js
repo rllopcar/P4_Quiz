@@ -85,10 +85,10 @@ exports.testCmd = (rl, id) => {
             const quiz = model.getByIndex(id);
             rl.question(colorize('¿'+quiz.question+'?'+' => ', 'red'), resp => {
                 if(resp.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                    biglog('CORRECTO', 'green');
+                    log('CORRECTO', 'green');
                     rl.prompt();
                 } else {
-                    biglog('INCORRECTO', 'red')
+                    log('INCORRECTO', 'red')
                     rl.prompt();
                 }
             });
