@@ -114,7 +114,7 @@ exports.playCmd = (rl) => {
     }
     const playOne = () => {
         if (toBeResolve.length == 0) {
-            biglog('NO HAY MÁS PREGUNTAS', 'red');
+            biglog('FIN', 'red');
             biglog('RESULTADO : '+score, 'red');
             rl.prompt();
         } else {
