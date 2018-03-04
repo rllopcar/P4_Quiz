@@ -131,7 +131,7 @@ exports.playCmd = (rl) => {
                     rl.prompt();
                 } else {
                     biglog('Incorrecto', 'red');
-                    biglog('GAME OVER', 'red');
+                    biglog('FIN', 'red');
                     rl.prompt();
                 }
             });
