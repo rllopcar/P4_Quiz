@@ -102,11 +102,11 @@ exports.listCmd = (rl) => {
  */
 const validateId = id => {
     return new Sequelize.Promise((resolve, reject) => {
-        if (typeof id == 'undefined') {
+        if (typeof id === "undefined") {
             reject(new Error(`Falta el parametro ${id}`));
         } else {
             id = parseInt(id); // coger la parte entera y descartar lo demas
-            if (Number.isNaN(id) || id < 1) {
+            if (Number.isNaN(id)) {
                 reject(new Error(`El valor del parámetro ${id} no es un número válido`))
             } else {
                 resolve(id);
@@ -183,14 +183,9 @@ exports.playCmd = (rl) => {
     let toBeResolve = [];
     //console.log('El modelo es', Object.keys(quizzes).length);
     l = Object.keys(quizzes).length;
-    
-    models.quiz.count()
-    .then(c => { 
-        for (i = 0; i < c; i++) {
-            toBeResolve.push(quizzes[i]);
-        }
-      })
-    
+    for (i = 0; i < l; i++) {
+        toBeResolve.push(quizzes[i]);
+    }
     const playOne = () => {
         if (toBeResolve.length == 0) {
             log('FIN', 'red');
