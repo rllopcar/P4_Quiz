@@ -110,7 +110,7 @@ const validateId = id => {
                 reject(new Error(`El valor del parámetro ${id} no es un número válido`))
             } else {
                 resolve(id);
-            }
+            } 
         }
     });
 };
@@ -274,6 +274,6 @@ exports.deleteCmd = (rl, id) => {
 
 exports.creditsCmd = (rl) => {
     console.log('Autores de la práctica:');
-    console.log('Roberto Llop Cardenal');
+    console.log('ROBERTO Llop Cardenal');
     rl.prompt();
 }
