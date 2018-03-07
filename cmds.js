@@ -142,7 +142,7 @@ exports.showCmd = (rl, id) => {
 const auxiliar = (rl, quiz) => {
     return new Promise((resolve, reject) => {
         rl.question(colorize(quiz.question+' => ', 'red'), answer => {
-            resolve(answer.toLowerCase().trim());
+            resolve(answer);
         });
     });
 };
@@ -162,7 +162,7 @@ exports.testCmd = (rl, id) => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
                 return log('CORRECTO', 'green');
             } else {
-                 return log('INCORRECTO', 'red');
+                return log('INCORRECTO', 'red');
             }
         })
         .catch(error => {
@@ -273,7 +273,7 @@ exports.deleteCmd = (rl, id) => {
 }
 
 exports.creditsCmd = (rl) => {
-    console.log('Autores de la práctica:');
-    console.log('ROBERTO Llop Cardenal');
+    log('Autores de la práctica:');
+    log('Roberto Llop Cardenal');
     rl.prompt();
 }
