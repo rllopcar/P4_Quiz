@@ -192,12 +192,12 @@ const playOne = (rl, toBeResolved, score) => {
                     if(answer.toLowerCase().trim() === quizAux.answer.toLowerCase().trim()) {
                         score++;
                         log(`Lleva ${score} aciertos`, 'blue');
-                        log('Correcto', 'green');
+                        log('correcto', 'green');
                         toBeResolved.splice(id, 1);
                         playOne(rl, toBeResolved, score);
                         rl.prompt();
                     } else {
-                        log('Incorrecto', 'red');
+                        log('incorrecto', 'red');
                         log('Fin');
                         rl.prompt();
                     }
@@ -209,6 +209,7 @@ const playOne = (rl, toBeResolved, score) => {
        rl.prompt();
     })
 };
+
 /**
  * Pregunta todos los quizzes existentes del módelo en orden aleatorio.
  * Se gana si contesta a todos satisfactoriamente.
