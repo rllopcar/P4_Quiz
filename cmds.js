@@ -82,15 +82,14 @@ exports.listCmd = (rl) => {
     
     models.quiz.findAll()
     .each( quiz => {
-            log(` [${colorize(quiz.id, 'magenta')}]: ${quiz.question}`);
+            log(`[${colorize(quiz.id, 'magenta')}]: ${quiz.question}`);
     })
     .catch(error => {
         errorlog(error.message);
     })
-    .then(() => {
+   .then(() => {
         rl.prompt();
     });
-    rl.prompt();
 };
 
 /**
@@ -160,9 +159,9 @@ exports.testCmd = (rl, id) => {
         auxiliar(rl, quiz)
         .then(answer => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                return log('CORRECTO', 'green');
+                return log('Correcto', 'green');
             } else {
-                return log('INCORRECTO', 'red');
+                return log('Incorrecto', 'red');
             }
         })
         .catch(error => {
@@ -175,45 +174,58 @@ exports.testCmd = (rl, id) => {
 };
 
 /**
+ * Auxiliar playOne()
+ */
+const playOne = (rl, toBeResolved, score) => {
+    return new Promise( () => {
+        if (toBeResolved.length == 0) {
+            log('FIN', 'red');
+            log('RESULTADO : '+ score, 'red');
+            rl.prompt();
+        } else {
+            console.log(toBeResolved)
+            let idAux = Math.random();
+            let id = Math.trunc(idAux*(toBeResolved.length));
+            models.quiz.findById(toBeResolved[id])
+            .then(quizAux => {
+                auxiliar(rl, quizAux)
+                .then(answer => {
+                    if(answer.toLowerCase().trim() === quizAux.answer.toLowerCase().trim()) {
+                        score++;
+                        log('CORRECTO', 'green');
+                        log(`Lleva ${score} aciertos`, 'blue');
+                        toBeResolved.splice(id, 1);
+                        playOne(rl, toBeResolved, score);
+                        rl.prompt();
+                    } else {
+                        log('Incorrecto', 'red');
+                        log('FIN', 'red');
+                        rl.prompt();
+                    }
+                })
+            })
+        }
+    })     
+    .then(() => {
+       rl.prompt();
+    })
+};
+/**
  * Pregunta todos los quizzes existentes del módelo en orden aleatorio.
  * Se gana si contesta a todos satisfactoriamente.
  */
 exports.playCmd = (rl) => {
     let score = 0;
-    let toBeResolve = [];
-    //console.log('El modelo es', Object.keys(quizzes).length);
-    l = Object.keys(quizzes).length;
-    for (i = 0; i < l; i++) {
-        toBeResolve.push(quizzes[i]);
-    }
-    const playOne = () => {
-        if (toBeResolve.length == 0) {
-            log('FIN', 'red');
-            log('RESULTADO : '+score, 'red');
-            rl.prompt();
-        } else {
-            let idAux = Math.random();
-            let id = Math.trunc(idAux*(toBeResolve.length));
-            let quiz = toBeResolve[id];
-            rl.question(colorize('¿'+quiz.question+'?'+' => ', 'red'), resp => {
-                if(resp.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                    score++;
-                    log('CORRECTO', 'green');
-                    log(`Lleva ${score} aciertos`, 'blue');
-                    toBeResolve.splice(id, 1);
-                    playOne();
-                    rl.prompt();
-                } else {
-                    log('Incorrecto', 'red');
-                    log('FIN', 'red');
-                    rl.prompt();
-                }
-            });
-        }
-        rl.prompt();
-    }
-    playOne();
-}
+    let toBeResolved = [];
+
+    models.quiz.findAll()
+    .each( quiz => {
+        toBeResolved.push(quiz.id);
+    })
+    .then( () => {
+        playOne(rl , toBeResolved, score);
+    });
+};
 
 
 /**
