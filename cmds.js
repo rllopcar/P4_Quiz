@@ -180,7 +180,7 @@ const playOne = (rl, toBeResolved, score) => {
     return new Promise( () => {
         if (toBeResolved.length == 0) {
             log('RESULTADO : '+ score, 'red');
-            log('FIN', 'red');
+            log('Fin');
             rl.prompt();
         } else {
             let idAux = Math.random();
