@@ -159,9 +159,9 @@ exports.testCmd = (rl, id) => {
         auxiliar(rl, quiz)
         .then(answer => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                return log('Correcto', 'green');
+                log('Correcto', 'green');
             } else {
-                return log('Incorrecto', 'red');
+                log('Incorrecto', 'red');
             }
         })
         .catch(error => {
