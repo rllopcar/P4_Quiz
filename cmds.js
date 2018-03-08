@@ -191,14 +191,14 @@ const playOne = (rl, toBeResolved, score) => {
                 .then(answer => {
                     if(answer.toLowerCase().trim() === quizAux.answer.toLowerCase().trim()) {
                         score++;
-                        log('CORRECTO', 'green');
+                        log('Correcto', 'green');
                         log(`Lleva ${score} aciertos`, 'blue');
                         toBeResolved.splice(id, 1);
                         playOne(rl, toBeResolved, score);
                         rl.prompt();
                     } else {
                         log('Incorrecto', 'red');
-                        log('FIN', 'red');
+                        log('Fin', 'red');
                         rl.prompt();
                     }
                 })
