@@ -198,7 +198,8 @@ const playOne = (rl, toBeResolved, score) => {
                         rl.prompt();
                     } else {
                         log('Incorrecto', 'red');
-                        log('Fin', 'red');
+                        console.log('Fin');
+                        //log('Fin', 'red');
                         rl.prompt();
                     }
                 })
