@@ -183,7 +183,6 @@ const playOne = (rl, toBeResolved, score) => {
             log('RESULTADO : '+ score, 'red');
             rl.prompt();
         } else {
-            console.log(toBeResolved)
             let idAux = Math.random();
             let id = Math.trunc(idAux*(toBeResolved.length));
             models.quiz.findById(toBeResolved[id])
