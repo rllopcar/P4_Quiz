@@ -179,8 +179,8 @@ exports.testCmd = (rl, id) => {
 const playOne = (rl, toBeResolved, score) => {
     return new Promise( () => {
         if (toBeResolved.length == 0) {
-            log('FIN', 'red');
             log('RESULTADO : '+ score, 'red');
+            log('FIN', 'red');
             rl.prompt();
         } else {
             let idAux = Math.random();
@@ -191,15 +191,14 @@ const playOne = (rl, toBeResolved, score) => {
                 .then(answer => {
                     if(answer.toLowerCase().trim() === quizAux.answer.toLowerCase().trim()) {
                         score++;
-                        log('Correcto', 'green');
                         log(`Lleva ${score} aciertos`, 'blue');
+                        log('Correcto', 'green');
                         toBeResolved.splice(id, 1);
                         playOne(rl, toBeResolved, score);
                         rl.prompt();
                     } else {
                         log('Incorrecto', 'red');
                         console.log('Fin');
-                        //log('Fin', 'red');
                         rl.prompt();
                     }
                 })
