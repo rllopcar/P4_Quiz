@@ -139,7 +139,7 @@ exports.showCmd = (rl, id) => {
  */
 
 const auxiliar = (rl, quiz) => {
-    return new Promise((resolve, reject) => {
+    return new Sequelize.Promise((resolve, reject) => {
         rl.question(colorize(quiz.question+' => ', 'red'), answer => {
             resolve(answer);
         });
@@ -151,25 +151,33 @@ const auxiliar = (rl, quiz) => {
  */
 exports.testCmd = (rl, id) => {
     validateId(id)
-    .then(id => models.quiz.findById(id))
-    .then(quiz => {
-        //if (!quiz) {
-        //    errorlog(`No existe un quiz asociado al id ${id}.`);
-        //}
-        auxiliar(rl, quiz)
-        .then(answer => {
-            if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                log('CORRECTO', 'green');
-            } else {
-                log('INCORRECTO', 'red');
+        .then(id => models.quiz.findById(id))
+        .then(quiz => {
+            if (!quiz) {
+                throw new Error(`No existe un quiz asociado al id=${id}.`);
             }
+
+            return makeQuestion(rl, `${quiz.question}? `)
+                .then(a => {
+                    if (a.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
+                        log('Su respuesta es correcta.');
+                        biglog('Correcta', 'green');
+                    } else {
+                        log('Su respuesta es incorrecta.');
+                        biglog('Incorrecta', 'red');
+                    }
+                });
+
+        })
+        .catch(Sequelize.ValidationError, error => {
+            errorlog('El quiz es erróneo');
+            error.errors.forEach(({ message }) => errorlog(message));
         })
         .catch(error => {
             errorlog(error.message);
         })
         .then(() => {
             rl.prompt();
-        });
     });
 };
 
