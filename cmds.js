@@ -153,15 +153,15 @@ exports.testCmd = (rl, id) => {
     validateId(id)
     .then(id => models.quiz.findById(id))
     .then(quiz => {
-        if (!quiz) {
-            errorlog(`No existe un quiz asociado al id ${id}.`);
-        }
+        //if (!quiz) {
+        //    errorlog(`No existe un quiz asociado al id ${id}.`);
+        //}
         auxiliar(rl, quiz)
         .then(answer => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                log('correcto');
+                log('CORRECTO', 'green');
             } else {
-                log('incorrecto');
+                log('INCORRECTO', 'red')
             }
         })
         .catch(error => {
@@ -191,14 +191,14 @@ const playOne = (rl, toBeResolved, score) => {
                 .then(answer => {
                     if(answer.toLowerCase().trim() === quizAux.answer.toLowerCase().trim()) {
                         score++;
+                        log('CORRECTO', 'green');
                         log(`Lleva ${score} aciertos`, 'blue');
-                        log('correcto', 'green');
                         toBeResolved.splice(id, 1);
                         playOne(rl, toBeResolved, score);
                         rl.prompt();
                     } else {
-                        log('incorrecto', 'red');
-                        log('Fin');
+                        log('Incorrecto', 'red');
+                        log('FIN', 'red');
                         rl.prompt();
                     }
                 })
