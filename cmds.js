@@ -197,7 +197,7 @@ const playOne = (rl, toBeResolved, score) => {
                         playOne(rl, toBeResolved, score);
                     } else {
                         log('incorrecto', 'red');
-                        log('FIN', 'red');
+                        log('Fin', 'red');
                     }
                 })
             })
