@@ -159,9 +159,9 @@ exports.testCmd = (rl, id) => {
         auxiliar(rl, quiz)
         .then(answer => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                log('CORRECTO', 'green');
+                log('correcto', 'green');
             } else {
-                log('INCORRECTO', 'red');
+                log('incorrecto', 'red');
             }
         })
         .catch(error => {
@@ -191,12 +191,12 @@ const playOne = (rl, toBeResolved, score) => {
                 .then(answer => {
                     if(answer.toLowerCase().trim() === quizAux.answer.toLowerCase().trim()) {
                         score++;
-                        log('CORRECTO', 'green');
+                        log('correcto', 'green');
                         log(`Lleva ${score} aciertos`, 'blue');
                         toBeResolved.splice(id, 1);
                         playOne(rl, toBeResolved, score);
                     } else {
-                        log('Incorrecto', 'red');
+                        log('incorrecto', 'red');
                         log('FIN', 'red');
                     }
                 })
