@@ -102,11 +102,11 @@ exports.listCmd = (rl) => {
 const validateId = id => {
     return new Sequelize.Promise((resolve, reject) => {
         if (typeof id === "undefined") {
-            reject(new Error(`Falta el parametro ${id}`));
+            errorlog(`Falta el parámetro id.`);
         } else {
             id = parseInt(id); // coger la parte entera y descartar lo demas
             if (Number.isNaN(id)) {
-                reject(new Error(`El valor del parámetro ${id} no es un número válido`))
+                errorlog(`El valor del parámetro ${id} no válido`);
             } else {
                 resolve(id);
             } 
@@ -122,7 +122,7 @@ exports.showCmd = (rl, id) => {
     .then(id => models.quiz.findById(id))
     .then(quiz => {
         if (!quiz) {
-            throw new Error(`No existe un quiz asociado al id=${id}.`);
+            errorlog(`No existe un quiz asociado al id=${id}.`);
         }
         log(` [${colorize(quiz.id, 'magenta')}]: ${quiz.question} ${colorize('=>', 'magenta')} ${quiz.answer}`)
     })
@@ -154,7 +154,7 @@ exports.testCmd = (rl, id) => {
     .then(id => models.quiz.findById(id))
     .then(quiz => {
         if (!quiz) {
-            throw new Error(`No existe un quiz asociado al id ${id}.`);
+            errorlog(`No existe un quiz asociado al id ${id}.`);
         }
         auxiliar(rl, quiz)
         .then(answer => {
@@ -237,7 +237,7 @@ exports.editCmd = (rl, id) => {
     .then(id => models.quiz.findById(id))
     .then(quiz => {
         if (!quiz) {
-            throw new Error(`No existe un quiz asociado al id ${id}.`);
+            errorlog(`No existe un quiz asociado al id ${id}.`);
         }
         process.stdout.isTTY && setTimeout(() => {rl.write(quiz.question)}, 0);
         return makeQuestion(rl, ' Introduzca la pregunta: ')
