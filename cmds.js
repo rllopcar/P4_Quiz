@@ -161,7 +161,7 @@ exports.testCmd = (rl, id) => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
                 log('CORRECTO', 'green');
             } else {
-                log('INCORRECTO', 'red')
+                log('INCORRECTO', 'red');
             }
         })
         .catch(error => {
@@ -195,11 +195,9 @@ const playOne = (rl, toBeResolved, score) => {
                         log(`Lleva ${score} aciertos`, 'blue');
                         toBeResolved.splice(id, 1);
                         playOne(rl, toBeResolved, score);
-                        rl.prompt();
                     } else {
                         log('Incorrecto', 'red');
                         log('FIN', 'red');
-                        rl.prompt();
                     }
                 })
             })
