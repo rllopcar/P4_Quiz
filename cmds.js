@@ -180,8 +180,7 @@ exports.testCmd = (rl, id) => {
 const playOne = (rl, toBeResolved, score) => {
     return new Promise( () => {
         if (toBeResolved.length == 0) {
-            console.log('RESULTADO : '+score,);
-            console.log('Fin');
+            console.log('Fin con resultado RESULTADO : '+score,);
             rl.prompt();
         } else {
             let idAux = Math.random();
