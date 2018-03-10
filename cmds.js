@@ -153,9 +153,6 @@ exports.testCmd = (rl, id) => {
     validateId(id)
     .then(id => models.quiz.findById(id))
     .then(quiz => {
-        //if (!quiz) {
-        //    errorlog(`No existe un quiz asociado al id ${id}.`);
-        //}
         auxiliar(rl, quiz)
         .then(answer => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
@@ -163,6 +160,10 @@ exports.testCmd = (rl, id) => {
             } else {
                 console.log('incorrecto');
             }
+        })
+        .catch(Sequelize.ValidationError, error => {
+            errorlog('El quiz es erróneo');
+            error.errors.forEach(({ message }) => errorlog(message));
         })
         .catch(error => {
             errorlog(error.message);
@@ -179,7 +180,8 @@ exports.testCmd = (rl, id) => {
 const playOne = (rl, toBeResolved, score) => {
     return new Promise( () => {
         if (toBeResolved.length == 0) {
-            console.log(`Fin del quiz. Acierto: ${score}`);
+            console.log('RESULTADO : '+score,);
+            console.log('Fin');
             rl.prompt();
         } else {
             let idAux = Math.random();
