@@ -159,9 +159,9 @@ exports.testCmd = (rl, id) => {
         auxiliar(rl, quiz)
         .then(answer => {
             if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                log('correcto', 'green');
+                console.log('correcto');
             } else {
-                log('incorrecto', 'red');
+                console.log('incorrecto');
             }
         })
         .catch(error => {
@@ -179,8 +179,7 @@ exports.testCmd = (rl, id) => {
 const playOne = (rl, toBeResolved, score) => {
     return new Promise( () => {
         if (toBeResolved.length == 0) {
-            log('RESULTADO : '+ score, 'red');
-            log('Fin');
+            console.log(`Fin del quiz. Acierto: ${score}`);
             rl.prompt();
         } else {
             let idAux = Math.random();
@@ -191,13 +190,12 @@ const playOne = (rl, toBeResolved, score) => {
                 .then(answer => {
                     if(answer.toLowerCase().trim() === quizAux.answer.toLowerCase().trim()) {
                         score++;
-                        log('correcto', 'green');
-                        log(`Lleva ${score} aciertos`, 'blue');
+                        console.log(`Respuesta correcta. Lleva ${score} aciertos`);
                         toBeResolved.splice(id, 1);
                         playOne(rl, toBeResolved, score);
                     } else {
-                        log('incorrecto', 'red');
-                        log('Fin', 'red');
+                        console.log(`Respuesta incorrecta. Fin del quiz. Aciertos: ${score}`);
+                        rl.prompt();
                     }
                 })
             })
