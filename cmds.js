@@ -151,15 +151,23 @@ const auxiliar = (rl, quiz) => {
  */
 exports.testCmd = (rl, id) => {
     validateId(id)
-    .then(id => models.quiz.findById(id))
-    .then(quiz => {
-        auxiliar(rl, quiz)
-        .then(answer => {
-            if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                console.log('correcto');
-            } else {
-                console.log('incorrecto');
+        .then(id => models.quiz.findById(id))
+        .then(quiz => {
+            if (!quiz) {
+                throw new Error(`No existe un quiz asociado al id=${id}.`);
             }
+
+            return makeQuestion(rl, `${quiz.question}? `)
+                .then(a => {
+                    if (a.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
+                        log('Su respuesta es correcta.');
+                        biglog('Correcta', 'green');
+                    } else {
+                        log('Su respuesta es incorrecta.');
+                        biglog('Incorrecta', 'red');
+                    }
+                });
+
         })
         .catch(Sequelize.ValidationError, error => {
             errorlog('El quiz es erróneo');
@@ -171,8 +179,10 @@ exports.testCmd = (rl, id) => {
         .then(() => {
             rl.prompt();
         });
-    });
+
 };
+
+
 
 /**
  * Auxiliar playOne()
