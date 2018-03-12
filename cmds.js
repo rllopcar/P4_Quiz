@@ -78,18 +78,17 @@ exports.addCmd = (rl) => {
 /** 
  * Lista todos los quizzes existentes en el modelo
 */
-exports.listCmd = (rl) => {
-    
+exports.listCmd = rl => {
     models.quiz.findAll()
-    .each( quiz => {
-            log(`[${colorize(quiz.id, 'magenta')}]: ${quiz.question}`);
-    })
-    .catch(error => {
-        errorlog(error.message);
-    })
-   .then(() => {
-        rl.prompt();
-    });
+        .each(quiz => {
+            log(` [${colorize(quiz.id, 'magenta')}]: ${quiz.question}`);
+        })
+        .catch(error => {
+            errorlog(error.message);
+        })
+        .then(() => {
+            rl.prompt();
+        });
 };
 
 /**
@@ -161,10 +160,8 @@ exports.testCmd = (rl, id) => {
                 .then(a => {
                     if (a.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
                         log('Su respuesta es correcta.');
-                        biglog('Correcta', 'green');
                     } else {
                         log('Su respuesta es incorrecta.');
-                        biglog('Incorrecta', 'red');
                     }
                 });
 
