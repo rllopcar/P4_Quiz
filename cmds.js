@@ -164,7 +164,6 @@ exports.testCmd = (rl, id) => {
                         log('Su respuesta es incorrecta.');
                     }
                 });
-
         })
         .catch(Sequelize.ValidationError, error => {
             errorlog('El quiz es erróneo');
