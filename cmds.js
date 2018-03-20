@@ -224,7 +224,7 @@ exports.playCmd = (socket, rl) => {
                             errorlog(socket, error.message);
                         })
                         .then(() => {
-                            rl.prompt();
+                            //rl.prompt();
                         });
                 }
             }
