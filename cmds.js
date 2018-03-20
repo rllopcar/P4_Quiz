@@ -205,7 +205,7 @@ exports.playCmd = (socket, rl) => {
                         .then(a => {
                             if (a.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
                                 score++;
-                                console.log(socket, `Respuesta correcta. Aciertos: ${score}`);
+                                log(socket, `Respuesta correcta. Aciertos: ${score}`);
                                 playOne();
                             } else {
                         
