@@ -210,7 +210,7 @@ exports.playCmd = (socket, rl) => {
                             } else {
                         
                                 log(socket, `Respuesta incorrecta. Fin del juego. Aciertos: ${score}`);
-                                //rl.prompt();
+                                rl.prompt();
                             }
 
                         })
@@ -224,7 +224,7 @@ exports.playCmd = (socket, rl) => {
                             errorlog(socket, error.message);
                         })
                         .then(() => {
-                            //rl.prompt();
+                            rl.prompt();
                         });
                 }
             }
@@ -235,7 +235,7 @@ exports.playCmd = (socket, rl) => {
 exports.creditsCmd = (socket, rl) => {
     log(socket, 'Autores de la práctica:');
     log(socket, 'ROBERTO LLOP CARDENAL', 'green');
-    rl.prompt();
+    strl.prompt();
 };
 
 exports.quitCmd = (socket, rl) => {
